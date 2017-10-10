@@ -28,7 +28,6 @@ export default Ember.Component.extend({
 
   actions: {
     savePattern() {
-      console.log('save');
       this.set('isLoading', true);
       this.set('savedPattern', this.get('inputPattern'));
       this.set('inputPattern', []);
