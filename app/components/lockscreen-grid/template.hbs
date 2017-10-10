@@ -1,0 +1,25 @@
+<div>
+  {{if isUnlocked 'Unlocked!' ''}}
+</div>
+
+<table align="center">
+  {{#each gridState as |row|}}
+    <tr>
+      {{#each row as |key|}}
+        {{lockscreen-digit
+          digit=key.digit
+          isInputted=key.isInputted
+          inputDigit=(action 'inputDigit')
+        }}
+      {{/each}}
+    </tr>
+  {{/each}}
+</table>
+
+{{#if isPatternSaved}}
+  <button class="btn btn-default" {{action 'resetPattern'}}>Reset</button>
+{{else}}
+  <button class="btn btn-default" {{action 'savePattern'}}>Save</button>
+{{/if}}
+
+<button class="btn btn-default" {{action 'resetInput'}}>Clear</button>
