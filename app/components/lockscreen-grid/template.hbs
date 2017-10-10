@@ -2,19 +2,29 @@
   {{if isUnlocked 'Unlocked!' ''}}
 </div>
 
-<table align="center">
-  {{#each gridState as |row|}}
+{{#if isLoading}}
+  <p>
+    Loading...
+  </p>
+{{else}}
+  <table align="center">
     <tr>
-      {{#each row as |key|}}
-        {{lockscreen-digit
-          digit=key.digit
-          isInputted=key.isInputted
-          inputDigit=(action 'inputDigit')
-        }}
-      {{/each}}
+      {{lockscreen-digit digit=0 inputDigit=(action 'inputDigit')}}
+      {{lockscreen-digit digit=1 inputDigit=(action 'inputDigit')}}
+      {{lockscreen-digit digit=2 inputDigit=(action 'inputDigit')}}
     </tr>
-  {{/each}}
-</table>
+    <tr>
+      {{lockscreen-digit digit=3 inputDigit=(action 'inputDigit')}}
+      {{lockscreen-digit digit=4 inputDigit=(action 'inputDigit')}}
+      {{lockscreen-digit digit=5 inputDigit=(action 'inputDigit')}}
+    </tr>
+    <tr>
+      {{lockscreen-digit digit=6 inputDigit=(action 'inputDigit')}}
+      {{lockscreen-digit digit=7 inputDigit=(action 'inputDigit')}}
+      {{lockscreen-digit digit=8 inputDigit=(action 'inputDigit')}}
+    </tr>
+  </table>
+{{/if}}
 
 {{#if isPatternSaved}}
   <button class="btn btn-default" {{action 'resetPattern'}}>Reset</button>

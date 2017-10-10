@@ -1,29 +1,28 @@
-import Component from '@ember/component';
-import { computed } from '@ember/object';
-import { htmlSafe } from '@ember/string';
+import Ember from 'ember';
 
-export default Component.extend({
+export default Ember.Component.extend({
   tagName: 'td',
 
   /* passed in properties */
   digit: -1,
-  isInputted: false,
   inputDigit() {},
 
   /* internal properties */
-  digitStyle: computed('isInputted', function() {
+  isInputted: false,
+
+  digitStyle: Ember.computed('isInputted', function() {
     if (this.get('isInputted')) {
-      return htmlSafe('width: 80px; color:red;');
+      return Ember.String.htmlSafe('width: 80px; color:red;');
     }
 
-    return htmlSafe('width: 80px;');
+    return Ember.String.htmlSafe('width: 80px;');
   }),
 
   actions: {
     onInput() {
       if (!this.get('isInputted')) {
         this.get('inputDigit')(this.get('digit'));
-        // this.set('isInputted', true);
+        this.set('isInputted', true);
       }
     }
   }

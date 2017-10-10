@@ -1,25 +1,6 @@
-import Component from '@ember/component';
-import { computed } from '@ember/object';
+import Ember from 'ember';
 
-const DEFAULT_GRID_STATE = [
-  [
-    { digit: 0, isInputted: false },
-    { digit: 1, isInputted: false },
-    { digit: 2, isInputted: false },
-  ],
-  [
-    { digit: 3, isInputted: false },
-    { digit: 4, isInputted: false },
-    { digit: 5, isInputted: false },
-  ],
-  [
-    { digit: 6, isInputted: false },
-    { digit: 7, isInputted: false },
-    { digit: 8, isInputted: false },
-  ]
-];
-
-export default Component.extend({
+export default Ember.Component.extend({
   classNames: ['text-center', 'center-block'],
 
   /* internal properties */
@@ -27,8 +8,9 @@ export default Component.extend({
   savedPattern: null,
   gridState: null,
   isPatternSaved: false,
+  isLoading: true,
 
-  isUnlocked: computed('isPatternSaved', 'inputPattern.@each', 'savedPattern.@each', function() {
+  isUnlocked: Ember.computed('isPatternSaved', 'inputPattern.@each', 'savedPattern.@each', function() {
     let inputPattern = this.get('inputPattern');
     let savedPattern = this.get('savedPattern');
 
@@ -41,34 +23,37 @@ export default Component.extend({
     this._super(...arguments);
 
     this.set('inputPattern', []);
-    this.set('gridState', DEFAULT_GRID_STATE);
+    this.set('isLoading', false);
   },
 
   actions: {
     savePattern() {
       console.log('save');
+      this.set('isLoading', true);
       this.set('savedPattern', this.get('inputPattern'));
       this.set('inputPattern', []);
       this.set('isPatternSaved', true);
-      this.set('gridState', DEFAULT_GRID_STATE);
+
+      Ember.run.later(() => this.set('isLoading', false), 500);
     },
 
     resetPattern() {
+      this.set('isLoading', true);
       this.set('savedPattern', []);
       this.set('isPatternSaved', false);
-      this.set('gridState', DEFAULT_GRID_STATE);
+
+      Ember.run.later(() => this.set('isLoading', false), 500);
     },
 
     resetInput() {
+      this.set('isLoading', true);
       this.set('inputPattern', []);
-      this.set('gridState', DEFAULT_GRID_STATE);
+
+      Ember.run.later(() => this.set('isLoading', false), 500);
     },
 
     inputDigit(digit) {
       this.get('inputPattern').pushObject(digit);
-      let row = digit / 3;
-      let column = digit % 3;
-
     }
   }
 });
