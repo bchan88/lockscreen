@@ -6,14 +6,19 @@ export default Ember.Component.extend({
 
   /* passed in properties */
   digit: -1,
+  isTouching: false,
+  hasDigitSelected: null,
   inputDigit() {},
+  setTouching() {},
+  clearInput() {},
 
   /* internal properties */
-  isInputted: false,
-  isTouching: false,
+  hasSelected: Ember.computed('hasDigitSelected.@each', function() {
+    return this.get('hasDigitSelected').objectAt(this.get('digit'));
+  }),
 
-  digitStyle: Ember.computed('isInputted', function() {
-    if (this.get('isInputted')) {
+  digitStyle: Ember.computed('hasSelected', function() {
+    if (this.get('hasSelected')) {
       return Ember.String.htmlSafe('width: 80px; color:red;');
     }
 
@@ -21,7 +26,8 @@ export default Ember.Component.extend({
   }),
 
   touchStart() {
-    this.set('isTouching', true);
+    this.get('setTouching')(true);
+    this.get('clearInput')();
   },
 
   touchMove(event) {
@@ -29,28 +35,28 @@ export default Ember.Component.extend({
     let tag = document.elementFromPoint(touch.clientX, touch.clientY);
     let digit = this.$(tag).parent().parent().attr('digit');
 
-    if (!this.get('isInputted') && this.get('isTouching') && digit) {
-      console.log('hover over ', digit);
+    if (this.get('isTouching') && digit) {
+      this.get('inputDigit')(digit);
     }
   },
 
   touchEnd() {
-    this.set('isTouching', false);
+    this.get('setTouching')(false);
   },
 
   mouseDown() {
-    this.set('isTouching', true);
+    this.get('setTouching')(true);
+    this.get('clearInput')();
   },
 
   mouseUp() {
-    this.set('isTouching', false);
+    this.get('setTouching')(false);
   },
 
   actions: {
     onInput() {
-      if (!this.get('isInputted') && this.get('isTouching')) {
+      if (this.get('isTouching')) {
         this.get('inputDigit')(this.get('digit'));
-        this.set('isInputted', true);
       }
     }
   }
