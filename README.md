@@ -7,7 +7,7 @@ directory.
 
 ## Demo
 
-[http://bchan-android-lockscreen.s3-website-us-west-2.amazonaws.com/](bchan-android-lockscreen)
+[bchan-android-lockscreen](http://bchan-android-lockscreen.s3-website-us-west-2.amazonaws.com/)
 
 ## Prerequisites
 
