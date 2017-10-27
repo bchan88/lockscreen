@@ -5,6 +5,10 @@ invoked once inside the `templates/application.hbs` file. The `lockscreen-grid`
 component and `lockscreen-digit` subcomponent is located under the `components/`
 directory.
 
+## Demo
+
+[http://bchan-android-lockscreen.s3-website-us-west-2.amazonaws.com/](bchan-android-lockscreen)
+
 ## Prerequisites
 
 You will need the following things properly installed on your computer.
