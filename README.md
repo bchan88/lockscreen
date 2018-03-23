@@ -1,4 +1,4 @@
-# lockscreen
+# LOCKSCREEN!! 
 
 Simple Ember.js component that mimics an Android lockscreen. The lockscreen is
 invoked once inside the `templates/application.hbs` file. The `lockscreen-grid`
